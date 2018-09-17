@@ -1,7 +1,7 @@
 Simon
 =====
 
-An art gallery application for Simon Stålenhag artworks
+Art gallery application for Simon Stålenhag artworks
 -----------
 
 How to build

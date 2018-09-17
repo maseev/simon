@@ -11,7 +11,7 @@
 
   <name>simon</name>
   <url>https://github.com/maseev/simon</url>
-  <description>An art gallery application for Simon Stålenhag artworks</description>
+  <description>Art gallery application for Simon Stålenhag artworks</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
