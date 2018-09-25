@@ -13,10 +13,26 @@ import org.junit.Test;
 public class ImageExtractorTest {
 
   @Test
-  public void extractImagesFromThePageMustReturn4Elements() throws IOException {
-    Document doc = DocumentParserUtil.parse("/page.html");
+  public void extractImagesFromThePageOneThreeMustReturn4Elements() throws IOException {
+    Document doc = DocumentParserUtil.parse("/page_1image_3details.html");
     Elements elements = new ImageExtractor(doc).extract();
 
     assertThat(elements.size(), is(equalTo(4)));
+  }
+
+  @Test
+  public void extractImagesFromThePageOneZeroMustReturn1Element() throws IOException {
+    Document doc = DocumentParserUtil.parse("/page_1image_0details.html");
+    Elements elements = new ImageExtractor(doc).extract();
+
+    assertThat(elements.size(), is(equalTo(1)));
+  }
+
+  @Test
+  public void extractImagesFromThePageZeroMustReturn0Elements() throws IOException {
+    Document doc = DocumentParserUtil.parse("/page_0images.html");
+    Elements elements = new ImageExtractor(doc).extract();
+
+    assertThat(elements.size(), is(equalTo(0)));
   }
 }
