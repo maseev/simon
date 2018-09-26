@@ -14,25 +14,28 @@ public class ImageExtractorTest {
 
   @Test
   public void extractImagesFromThePageOneThreeMustReturn4Elements() throws IOException {
-    Document doc = DocumentParserUtil.parse("/page_1image_3details.html");
-    Elements elements = new ImageExtractor(doc).extract();
+    Elements elements = extract("/page_1image_3details.html");
 
     assertThat(elements.size(), is(equalTo(4)));
   }
 
   @Test
   public void extractImagesFromThePageOneZeroMustReturn1Element() throws IOException {
-    Document doc = DocumentParserUtil.parse("/page_1image_0details.html");
-    Elements elements = new ImageExtractor(doc).extract();
+    Elements elements = extract("/page_1image_0details.html");
 
     assertThat(elements.size(), is(equalTo(1)));
   }
 
   @Test
   public void extractImagesFromThePageZeroMustReturn0Elements() throws IOException {
-    Document doc = DocumentParserUtil.parse("/page_0images.html");
-    Elements elements = new ImageExtractor(doc).extract();
+    Elements elements = extract("/page_0images.html");
 
     assertThat(elements.size(), is(equalTo(0)));
+  }
+
+  private static Elements extract(String path) throws IOException {
+    Document doc = DocumentParserUtil.parse(path);
+
+    return new ImageExtractor(doc).extract();
   }
 }
