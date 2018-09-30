@@ -11,8 +11,6 @@ public final class DocumentParserUtil {
   }
 
   public static Document parse(String path) throws IOException {
-    final String resourcePath = DocumentParserUtil.class.getResource(path).getPath();
-
-    return Jsoup.parse(new File(resourcePath), "UTF-8");
+    return Jsoup.parse(new File(ResourceUtil.getPath(path)), "UTF-8");
   }
 }
