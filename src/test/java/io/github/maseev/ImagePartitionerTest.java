@@ -2,6 +2,7 @@ package io.github.maseev;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
 import io.github.maseev.util.DocumentParserUtil;
@@ -24,7 +25,12 @@ public class ImagePartitionerTest {
     List<ImagePartition> partitions = partition("/page_1image_0details.html");
 
     assertThat(partitions.size(), is(equalTo(1)));
-    assertThat(partitions.get(0).getDetails().size(), is(equalTo(0)));
+
+    ImagePartition partition = partitions.get(0);
+
+    assertNotNull(partition.getBigImage());
+    assertNotNull(partition.getThumbnail());
+    assertThat(partition.getDetails().size(), is(equalTo(0)));
   }
 
   @Test
@@ -32,6 +38,11 @@ public class ImagePartitionerTest {
     List<ImagePartition> partitions = partition("/page_1image_3details.html");
 
     assertThat(partitions.size(), is(equalTo(1)));
+
+    ImagePartition partition = partitions.get(0);
+
+    assertNotNull(partition.getBigImage());
+    assertNotNull(partition.getThumbnail());
     assertThat(partitions.get(0).getDetails().size(), is(equalTo(3)));
   }
 
