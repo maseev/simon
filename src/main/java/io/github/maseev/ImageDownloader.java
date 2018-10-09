@@ -11,12 +11,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class ImageDownloaderUtil {
+public class ImageDownloader {
 
-  private ImageDownloaderUtil() {
-  }
-
-  public static File download(String imagePath, String saveTo) throws IOException {
+  public File download(String imagePath, String saveTo) throws IOException {
     URL url = new URL(imagePath);
     Path path = Paths.get(saveTo);
 
@@ -27,7 +24,7 @@ public final class ImageDownloaderUtil {
     return path.toFile();
   }
 
-  public static List<File> download(List<String> imagePaths, String saveTo) throws IOException {
+  public List<File> download(List<String> imagePaths, String saveTo) throws IOException {
     List<File> files = new ArrayList<>(imagePaths.size());
 
     for (String imagePath : imagePaths) {

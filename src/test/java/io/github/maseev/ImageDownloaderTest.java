@@ -7,14 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import org.junit.Test;
 
-public class ImageDownloaderUtilTest {
+public class ImageDownloaderTest {
 
   @Test
   public void test() throws IOException {
     String pagePath = ResourceUtil.getPath("/page_0images.html");
     String saveTo = getFolder(pagePath) + "/tmp.html";
 
-    ImageDownloaderUtil.download("file://" + pagePath, saveTo);
+    new ImageDownloader().download("file://" + pagePath, saveTo);
 
     File file = new File(saveTo);
 

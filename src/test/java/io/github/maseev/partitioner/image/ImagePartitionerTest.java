@@ -1,10 +1,11 @@
-package io.github.maseev;
+package io.github.maseev.partitioner.image;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
+import io.github.maseev.ImageExtractor;
 import io.github.maseev.util.DocumentParserUtil;
 import java.io.IOException;
 import java.util.List;

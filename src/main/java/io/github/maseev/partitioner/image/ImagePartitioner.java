@@ -1,4 +1,4 @@
-package io.github.maseev;
+package io.github.maseev.partitioner.image;
 
 import java.util.ArrayList;
 import java.util.Iterator;
