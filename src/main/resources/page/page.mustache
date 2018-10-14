@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Art Gallery</title>
+    <link rel="stylesheet" href="css/masonry.css?" media="screen">
+    <link rel="stylesheet" href="css/fslightbox.min.css">
+    <script src="js/imagesloaded.pkgd.min.js"></script>
+    <script src="js/masonry.pkgd.min.js"></script>
+</head>
+<body>
+
+<div class="grid">
+    <div class="grid-sizer"></div>
+
+    {{#images}}
+    <div class="grid-item">
+        <a data-fslightbox href="{{bigImage}}">
+            <img src="{{thumbnail}}">
+        </a>
+    </div>
+    {{/images}}
+</div>
+
+<script src="js/init.js"></script>
+<script src="js/fslightbox.min.js"></script>
+</body>
+</html>
