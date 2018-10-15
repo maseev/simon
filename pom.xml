@@ -20,6 +20,7 @@
     <log4j.version>2.11.2</log4j.version>
     <jsoup.version>1.12.1</jsoup.version>
     <junit.version>4.11</junit.version>
+    <mustache.version>0.9.6</mustache.version>
   </properties>
 
   <dependencies>
@@ -39,6 +40,12 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>${log4j.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.github.spullara.mustache.java</groupId>
+      <artifactId>compiler</artifactId>
+      <version>${mustache.version}</version>
     </dependency>
 
     <dependency>
