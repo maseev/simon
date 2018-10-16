@@ -31,11 +31,10 @@ public class ImagePartitionerTest {
 
     assertNotNull(partition.getBigImage());
     assertNotNull(partition.getThumbnail());
-    assertThat(partition.getDetails().size(), is(equalTo(0)));
   }
 
   @Test
-  public void partitioningPageWithOneImageAndThreeDetailsMustReturnOnePartitionWithThreeDetails() throws IOException {
+  public void partitioningPageWithOneImageAndThreeDetailsMustReturnOnePartition() throws IOException {
     List<ImagePartition> partitions = partition("/page_1image_3details.html");
 
     assertThat(partitions.size(), is(equalTo(1)));
@@ -44,7 +43,6 @@ public class ImagePartitionerTest {
 
     assertNotNull(partition.getBigImage());
     assertNotNull(partition.getThumbnail());
-    assertThat(partitions.get(0).getDetails().size(), is(equalTo(3)));
   }
 
   public static List<ImagePartition> partition(String path) throws IOException {

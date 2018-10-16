@@ -29,9 +29,8 @@ public class ImageFilePartitioner {
 
       File bigImage = imageDownloader.download(imagePartition.getBigImage(), dstFolder);
       File thumbnail = imageDownloader.download(imagePartition.getThumbnail(), dstFolder);
-      List<File> details = imageDownloader.download(imagePartition.getDetails(), dstFolder);
 
-      partitions.add(new ImageFilePartition(bigImage, thumbnail, details));
+      partitions.add(new ImageFilePartition(bigImage, thumbnail));
     }
 
     return partitions;

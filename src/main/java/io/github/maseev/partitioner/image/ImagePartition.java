@@ -1,17 +1,13 @@
 package io.github.maseev.partitioner.image;
 
-import java.util.List;
-
 public class ImagePartition {
 
   private final String bigImage;
   private final String thumbnail;
-  private final List<String> details;
 
-  public ImagePartition(String bigImage, String thumbnail, List<String> details) {
+  public ImagePartition(String bigImage, String thumbnail) {
     this.bigImage = bigImage;
     this.thumbnail = thumbnail;
-    this.details = details;
   }
 
   public String getBigImage() {
@@ -20,9 +16,5 @@ public class ImagePartition {
 
   public String getThumbnail() {
     return thumbnail;
-  }
-
-  public List<String> getDetails() {
-    return details;
   }
 }

@@ -8,8 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ImageDownloader {
 
@@ -22,15 +20,5 @@ public class ImageDownloader {
     }
 
     return path.toFile();
-  }
-
-  public List<File> download(List<String> imagePaths, String saveTo) throws IOException {
-    List<File> files = new ArrayList<>(imagePaths.size());
-
-    for (String imagePath : imagePaths) {
-      files.add(download(imagePath, saveTo));
-    }
-
-    return files;
   }
 }

@@ -1,7 +1,6 @@
 package io.github.maseev.partitioner.image;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -17,42 +16,36 @@ public class ImagePartitioner {
   public List<ImagePartition> partition() {
     List<ImagePartition> partitions = new ArrayList<>();
 
-    String bigImage = null;
-    String thumbnail = null;
-    List<String> details = new ArrayList<>();
+    for (Element anchorElement : elements) {
+      String bigImage = anchorElement.absUrl("href");
+      String thumbnail = getThumbnail(anchorElement);
 
-    Iterator<Element> elementIterator = elements.iterator();
-
-    while (elementIterator.hasNext()) {
-      Element element = elementIterator.next();
-      String hrefUrl = element.absUrl("href");
-
-      if (bigImage == null) {
-        bigImage = hrefUrl;
-      } else if (!bigImage.equals(hrefUrl)) {
-        partitions.add(new ImagePartition(bigImage, thumbnail, details));
-        details = new ArrayList<>();
-      }
-
-      for (Element image : element.children()) {
-        String srcUrl = image.absUrl("src");
-
-        if (isDetailImage(srcUrl)) {
-          details.add(srcUrl);
-        } else {
-          thumbnail = srcUrl;
-        }
-      }
-
-      if (!elementIterator.hasNext()) {
-        partitions.add(new ImagePartition(bigImage, thumbnail, details));
+      if (isNotDetailImage(thumbnail)) {
+        partitions.add(new ImagePartition(bigImage, thumbnail));
       }
     }
 
     return partitions;
   }
 
-  private static boolean isDetailImage(String url) {
-    return url.contains("detalj");
+  private static String getThumbnail(Element anchorElement) {
+    for (Element image : anchorElement.children()) {
+      String srcUrl = image.absUrl("src");
+
+      if (isThumbnail(srcUrl)) {
+        return srcUrl;
+      }
+    }
+
+    return null;
+  }
+
+  private static boolean isThumbnail(String url) {
+    return !url.contains("detalj");
+  }
+
+  private static boolean isNotDetailImage(String thumbnail) {
+    // all 'detail' images point to the same 'big' image, we need to skip them
+    return thumbnail != null;
   }
 }
