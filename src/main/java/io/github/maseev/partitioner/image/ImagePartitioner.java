@@ -1,7 +1,9 @@
 package io.github.maseev.partitioner.image;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -14,7 +16,7 @@ public class ImagePartitioner {
   }
 
   public List<ImagePartition> partition() {
-    List<ImagePartition> partitions = new ArrayList<>();
+    Set<ImagePartition> partitions = new LinkedHashSet<>();
 
     for (Element anchorElement : elements) {
       String bigImage = anchorElement.absUrl("href");
@@ -25,7 +27,7 @@ public class ImagePartitioner {
       }
     }
 
-    return partitions;
+    return new ArrayList<>(partitions);
   }
 
   private static String getThumbnail(Element anchorElement) {
