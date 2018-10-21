@@ -18,10 +18,18 @@ public class PageGenerator {
   }
 
   public void generate(String templateFile) throws IOException {
+    class PartitionsHolder {
+      final List<ImageFilePartition> images;
+
+      PartitionsHolder(List<ImageFilePartition> images) {
+        this.images = images;
+      }
+    }
+
     MustacheFactory mf = new DefaultMustacheFactory();
     Mustache mustache = mf.compile(templateFile);
 
     mustache.execute(new BufferedWriter(new FileWriter("index.html")),
-      imageFilePartitions).flush();
+      new PartitionsHolder(imageFilePartitions)).flush();
   }
 }
