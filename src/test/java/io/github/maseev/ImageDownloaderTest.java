@@ -10,9 +10,13 @@ import org.junit.Test;
 public class ImageDownloaderTest {
 
   @Test
-  public void test() throws IOException {
-    String pagePath = ResourceUtil.getPath("/page_0images.html");
-    String saveTo = getFolder(pagePath) + "/tmp.html";
+  public void downloadingAFileMustSaveItToTheDesignatedFolder() throws IOException {
+    String filename = "page_0images.html";
+    String pagePath = ResourceUtil.getPath(File.separatorChar + filename);
+    String dstFolder = getFolder(pagePath) + File.separatorChar + "page";
+    String saveTo = dstFolder + File.separatorChar + filename;
+
+    new File(dstFolder).mkdirs();
 
     new ImageDownloader().download("file://" + pagePath, saveTo);
 
@@ -20,6 +24,8 @@ public class ImageDownloaderTest {
 
     assertTrue(file.exists());
     assertTrue(file.delete());
+
+    new File(saveTo).delete();
   }
 
   private static String getFolder(String resourcePath) {

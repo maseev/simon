@@ -1,5 +1,7 @@
 package io.github.maseev.util;
 
+import static java.lang.String.format;
+
 import java.io.File;
 
 public final class PathUtil {
@@ -7,18 +9,49 @@ public final class PathUtil {
   private PathUtil() {
   }
 
-  public static String getImageFolder(String dstFolderPath, String imageURL) {
-    return dstFolderPath + File.separatorChar + getImageName(imageURL);
+  public static String generateFilePath(String folderPath, String filename) {
+    return folderPath + File.separatorChar + filename;
   }
 
-  private static String getImageName(String imagePath) {
+  public static String generateFolderName(String dstFolderPath, String imageURL) {
+    return dstFolderPath + File.separatorChar + extractImageNameFromURL(imageURL);
+  }
+
+  public static String extractFilename(String imageURL) {
+    final int slashIndex = imageURL.lastIndexOf('/');
+
+    if (slashIndex == -1) {
+      throw new IllegalArgumentException(format("unable to extract image file name: %s", imageURL));
+    }
+
+    return imageURL.substring(slashIndex + 1);
+  }
+
+  public static String append(String fileName, String appender) {
+    String fileNameExplicit = fileName.substring(0, fileName.lastIndexOf('.'));
+    String extension = getExtension(fileName);
+
+    return fileNameExplicit + appender + extension;
+  }
+
+  private static String extractImageNameFromURL(String imagePath) {
     int slashIndex = imagePath.lastIndexOf('/');
     int dotIndex = imagePath.lastIndexOf('.');
 
     if (slashIndex == -1 || dotIndex == -1) {
-      throw new IllegalArgumentException(String.format("image path is not valid: %s", imagePath));
+      throw new IllegalArgumentException(format("image path is not valid: %s", imagePath));
     }
 
     return imagePath.substring(slashIndex + 1, dotIndex);
+  }
+
+  private static String getExtension(String filename) {
+    int extensionIndex = filename.lastIndexOf('.');
+
+    if (extensionIndex == -1) {
+      throw new IllegalArgumentException(format("unable to find the file extension: %s", filename));
+    }
+
+    return filename.substring(extensionIndex);
   }
 }

@@ -1,5 +1,6 @@
 package io.github.maseev;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +16,7 @@ public class ImageDownloader {
     URL url = new URL(imagePath);
     Path path = Paths.get(saveTo);
 
-    try (InputStream input = url.openConnection().getInputStream()) {
+    try (InputStream input = new BufferedInputStream(url.openConnection().getInputStream())) {
       Files.copy(input, path, StandardCopyOption.REPLACE_EXISTING);
     }
 
