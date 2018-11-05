@@ -1,5 +1,7 @@
 package io.github.maseev;
 
+import static java.util.Arrays.asList;
+
 import io.github.maseev.partitioner.file.ImageFilePartition;
 import io.github.maseev.partitioner.file.ImageFilePartitioner;
 import io.github.maseev.partitioner.image.ImagePartition;
@@ -19,12 +21,19 @@ public class Main {
   private static final Logger log = LogManager.getLogger();
 
   public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-    String website = "https://simonstalenhag.se/";
+    List<String> websites =
+      asList("http://www.simonstalenhag.se/index.html", "http://www.simonstalenhag.se/paleo.html");
     String imagesFolder = "images";
 
-    log.info("extracting images from the page");
-    Document doc = Jsoup.connect(website).get();
-    Elements anchorElements = new ImageExtractor(doc).extract();
+    Elements anchorElements = new Elements();
+
+    log.info("extracting images from the websites");
+    for (String website : websites) {
+      Document doc = Jsoup.connect(website).get();
+      Elements elements = new ImageExtractor(doc).extract();
+
+      anchorElements.addAll(elements);
+    }
     log.info("finished extracting images");
 
     log.info("partitioning images");
