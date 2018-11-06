@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -69,13 +70,28 @@ public class ImageFilePartitioner {
 
         new File(dstFolder).mkdirs();
 
-        File bigImage = imageDownloader.download(imagePartition.getBigImage(), bigImageDstPath);
-        File thumbnail = imageDownloader.download(imagePartition.getThumbnail(), thumbnailDstPath);
+        Optional<File> bigImage =
+          imageDownloader.download(imagePartition.getBigImage(), bigImageDstPath);
+        Optional<File> thumbnail =
+          imageDownloader.download(imagePartition.getThumbnail(), thumbnailDstPath);
 
-        log.info("image and its thumbnail have been downloaded; image url: {}",
-          imagePartition.getBigImage());
+        if (bigImage.isPresent() && thumbnail.isPresent()) {
+          log.info("image and its thumbnail have been downloaded; image url: {}",
+            imagePartition.getBigImage());
 
-        return new ImageFilePartition(bigImage, thumbnail);
+          return new ImageFilePartition(bigImage.get(), thumbnail.get());
+        } else if (bigImage.isPresent()) {
+          log.info("unable to download the thumbnail - using a big image as a thumbnail; " +
+              "image url: {}",
+            imagePartition.getBigImage());
+
+          return new ImageFilePartition(bigImage.get(), bigImage.get());
+        } else {
+          log.info("unable to download the image - using the thumbnail twice; image url: {}",
+            imagePartition.getBigImage());
+
+          return new ImageFilePartition(thumbnail.get(), thumbnail.get());
+        }
       });
 
       futures.add(future);
