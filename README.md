@@ -11,9 +11,6 @@ After that, it generates an HTML page which presents the downloaded artwork in a
 manner by creating an online gallery where users can navigate with ease and be able to see the 
 full-size images without leaving the main page and opening unnecessary browser tabs.
 
-![main](img/main.png)
-![gallery](img/gallery.png)
-
 How to build
 ------------
 * Clone this repository
