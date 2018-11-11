@@ -9,6 +9,16 @@ public final class PathUtil {
   private PathUtil() {
   }
 
+  public static String getFolderPath(String filePath) {
+    int folderSeparatorIndex = filePath.lastIndexOf(File.separatorChar);
+
+    if (folderSeparatorIndex == -1) {
+      throw new IllegalArgumentException(format("invalid file path: %s", filePath));
+    }
+
+    return filePath.substring(0, folderSeparatorIndex);
+  }
+
   public static String generateFilePath(String folderPath, String filename) {
     return folderPath + File.separatorChar + filename;
   }
@@ -28,8 +38,8 @@ public final class PathUtil {
   }
 
   public static String append(String fileName, String appender) {
-    String fileNameExplicit = fileName.substring(0, fileName.lastIndexOf('.'));
     String extension = getExtension(fileName);
+    String fileNameExplicit = fileName.substring(0, fileName.lastIndexOf('.'));
 
     return fileNameExplicit + appender + extension;
   }

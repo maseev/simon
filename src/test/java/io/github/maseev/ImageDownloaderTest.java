@@ -1,10 +1,12 @@
 package io.github.maseev;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import io.github.maseev.util.ResourceUtil;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import org.junit.Test;
 
 public class ImageDownloaderTest {
@@ -26,6 +28,16 @@ public class ImageDownloaderTest {
     assertTrue(file.delete());
 
     new File(saveTo).delete();
+  }
+
+  @Test
+  public void downloadingFromInvalidURLMustReturnEmptyOptionalFile() throws IOException {
+    String filename = "page_0images.html";
+    String pagePath = ResourceUtil.getPath(File.separatorChar + filename);
+    Optional<File> file =
+      new ImageDownloader().download("file://" + pagePath + "invalid", "invalid");
+
+    assertFalse(file.isPresent());
   }
 
   private static String getFolder(String resourcePath) {

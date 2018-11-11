@@ -8,7 +8,9 @@ import static org.junit.Assert.assertThat;
 import io.github.maseev.ImageExtractor;
 import io.github.maseev.util.DocumentParserUtil;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.jsoup.nodes.Document;
 import org.junit.Test;
 
@@ -43,6 +45,20 @@ public class ImagePartitionerTest {
 
     assertNotNull(partition.getBigImage());
     assertNotNull(partition.getThumbnail());
+  }
+
+  @Test
+  public void testingImagePartitionEquality() {
+    ImagePartition partition = new ImagePartition("image", "image");
+    ImagePartition anotherPartition = new ImagePartition("image", "image");
+    Set<ImagePartition> partitions = new HashSet<>();
+
+    partitions.add(partition);
+    partitions.add(anotherPartition);
+
+    assertThat(partitions.size(), is(equalTo(1)));
+    assertThat(partitions.contains(partition), is(true));
+    assertThat(partition, is(equalTo(anotherPartition)));
   }
 
   public static List<ImagePartition> partition(String path) throws IOException {

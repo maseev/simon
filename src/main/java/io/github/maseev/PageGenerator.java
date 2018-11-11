@@ -17,7 +17,7 @@ public class PageGenerator {
     this.imageFilePartitions = imageFilePartitions;
   }
 
-  public void generate(String templateFile) throws IOException {
+  public void generate(String templateFile, String pageFilename) throws IOException {
     class PartitionsHolder {
       final List<ImageFilePartition> images;
 
@@ -29,7 +29,7 @@ public class PageGenerator {
     MustacheFactory mf = new DefaultMustacheFactory();
     Mustache mustache = mf.compile(templateFile);
 
-    mustache.execute(new BufferedWriter(new FileWriter("index.html")),
+    mustache.execute(new BufferedWriter(new FileWriter(pageFilename)),
       new PartitionsHolder(imageFilePartitions)).flush();
   }
 }

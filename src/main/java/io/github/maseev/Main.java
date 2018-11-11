@@ -50,7 +50,7 @@ public class Main {
 
     log.info("generating the HTML page");
     PageGenerator pageGenerator = new PageGenerator(imageFilePartitions);
-    pageGenerator.generate("page.mustache");
+    pageGenerator.generate("page.mustache", "index.html");
     log.info("done");
   }
 }
